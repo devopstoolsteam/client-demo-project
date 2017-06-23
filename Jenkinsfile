@@ -13,13 +13,13 @@ node{
       bat "${mvnHome}/bin/mvn clean deploy" 
   }
   stage('DeployApplication'){
-    echo "Deploy the application in tomcat" 
+    echo 'Deploy the application in tomcat' 
   }
  stage('Run Selenium Test'){
-    echo "run selenium tests using testNG"
+    echo 'run selenium tests using testNG'
   }
   stage('Performane Tests'){
-    echo "run load testing using jmeete tool"
+    echo 'run load testing using jmeete tool'
    }
  
 }
