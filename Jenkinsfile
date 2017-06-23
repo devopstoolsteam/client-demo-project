@@ -2,7 +2,7 @@ node{
  stage('Source'){
     checkout scm
  }
-  def mvnHome = tool 'Maven HOme'
+  def mvnHome = tool 'MAVEN_HOME'
  stage('Build'){
       bat "${mvnHome}/bin/mvn clean install" 
   }
@@ -13,21 +13,13 @@ node{
       bat "${mvnHome}/bin/mvn clean deploy" 
   }
   stage('DeployApplication'){
-     sshagent(['chefid']) {
-      bat 'ssh -o StrictHostKeyChecking=no -l ubuntu 172.16.151.77 uname -a'
-     }
+    echo "Deploy the application in tomcat" 
   }
  stage('Run Selenium Test'){
-    dir ("D:\\PROJECT_INFO\\DEVOPS\\selenium_project_bat_file") { 
-        bat 'Selenium.bat' 
-     } 
+    echo "run selenium tests using testNG"
   }
   stage('Performane Tests'){
-                bat '''D:
-				cd D:\\Jmeeter\\apache-jmeter-3.1\\bin
-	            jmeter -n -t D:\\Jmeeter\\apache-jmeter-3.1\\extras\\Test.jmx -l D:\\Jmeeter\\demo-report.jtl'''
-              
-    			performanceReport compareBuildPrevious: false, configType: 'ART', errorFailedThreshold: 0, errorUnstableResponseTimeThreshold: '', errorUnstableThreshold: 0, failBuildIfNoResultFile: false, modeOfThreshold: false, modePerformancePerTestCase: true, modeThroughput: false, nthBuildNumber: 0, parsers: [[$class: 'JMeterParser', glob: 'D:\\Jmeeter\\demo-report.jtl']], relativeFailedThresholdNegative: 0, relativeFailedThresholdPositive: 0, relativeUnstableThresholdNegative: 0, relativeUnstableThresholdPositive: 0
-            }
+    echo "run load testing using jmeete tool"
    }
  
+}
